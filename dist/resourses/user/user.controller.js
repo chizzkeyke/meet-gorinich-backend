@@ -8,6 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -87,7 +98,16 @@ class UserController {
                 if (!userData) {
                     throw 'User is not found.';
                 }
-                return res.status(200).json(userData);
+                const { email, phoneNumber, firstName, middleName, lastName, infoAboutCompany, corporate } = userData;
+                return res.status(200).json({
+                    email,
+                    phoneNumber,
+                    firstName,
+                    middleName,
+                    lastName,
+                    infoAboutCompany,
+                    corporate
+                });
             }
             catch (error) {
                 return res.status(400).json({
@@ -96,8 +116,23 @@ class UserController {
             }
         });
     }
-    updateUserInfo() {
+    updateUserInfo(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const data = __rest(req.body, []);
+                const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1];
+                if (!token) {
+                    throw 'Token is not found.';
+                }
+                const updatedDataUser = yield user_model_1.modelUser.findOneAndUpdate({ token }, Object.assign({}, data), { new: true });
+                return res.status(200).json(updatedDataUser);
+            }
+            catch (error) {
+                return res.status(400).json({
+                    error
+                });
+            }
         });
     }
 }

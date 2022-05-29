@@ -1,3 +1,4 @@
+import { model } from 'mongoose';
 import { modelUser } from './user.model';
 import { Request, Response } from 'express';
 import { UserService } from './user.service';
@@ -86,17 +87,17 @@ export class UserController {
             phoneNumber,
             firstName,
             middleName,
-            lastName, 
+            lastName,
             infoAboutCompany,
             corporate
          } = userData
 
          return res.status(200).json({
-            email, 
-            phoneNumber, 
-            firstName, 
-            middleName, 
-            lastName, 
+            email,
+            phoneNumber,
+            firstName,
+            middleName,
+            lastName,
             infoAboutCompany,
             corporate
          })
@@ -112,22 +113,14 @@ export class UserController {
       try {
          const { ...data } = req.body
          const token = req.headers.authorization?.split(' ')[1]
-         
+
          if (!token) {
             throw 'Token is not found.'
          }
 
-         const findedUser = await modelUser.findOneAndUpdate({token}, {
-            ...data
-         }, {
-            new: true
-         })
-
-         await findedUser?.save()
-
-         return res.status(204).json({
-            message: 'Data user was updated'
-         })
+         const updatedDataUser = await modelUser.findOneAndUpdate({ token }, { ...data }, { new: true });
+         
+         return res.status(200).json(updatedDataUser)
 
       } catch (error) {
          return res.status(400).json({

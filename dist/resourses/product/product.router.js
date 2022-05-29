@@ -9,4 +9,6 @@ const routerProduct = (0, express_1.Router)();
 exports.routerProduct = routerProduct;
 routerProduct.get('/product', controller.getProduct);
 routerProduct.use('/product', auth_middleware_1.authMiddleware);
-routerProduct.post('/product', controller.createProduct);
+routerProduct.post('/product/create', controller.createProduct);
+routerProduct.patch('/product/:nameProduct/price', controller.updatePriceProduct);
+routerProduct.patch('/product/:nameProduct/count', controller.updateCountProduct);
