@@ -5,5 +5,5 @@ export interface OrderI {
     products: ProductI[]
     client: string
     phoneNumberClient: number
-    comment: string
+    comment?: string
 }

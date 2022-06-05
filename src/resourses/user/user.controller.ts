@@ -89,7 +89,8 @@ export class UserController {
             middleName,
             lastName,
             infoAboutCompany,
-            corporate
+            corporate,
+            role
          } = userData
 
          return res.status(200).json({
@@ -99,7 +100,8 @@ export class UserController {
             middleName,
             lastName,
             infoAboutCompany,
-            corporate
+            corporate,
+            role
          })
 
       } catch (error) {
@@ -119,7 +121,7 @@ export class UserController {
          }
 
          const updatedDataUser = await modelUser.findOneAndUpdate({ token }, { ...data }, { new: true });
-         
+
          return res.status(200).json(updatedDataUser)
 
       } catch (error) {
