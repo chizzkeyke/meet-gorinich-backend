@@ -8,7 +8,7 @@ export class ProductController {
          const products = await ProductModel.find()
 
          if (!products) throw 'Ошибка в получении данных о продуктах.'
-         
+
          return res.status(200).json({
             data: products
          })
@@ -31,18 +31,18 @@ export class ProductController {
 
          return res.status(200).json({ data: product })
       } catch (err) {
-         res.status(400).json({ error: err })
+         return res.status(400).json({ error: err })
       }
    }
 
    async createProduct(req: Request, res: Response) {
       try {
-         const { name, description, count, price, title } = req.body
-
-         const newProduct = await ProductModel.create({ name, description, count, price, title })
+         const { count, description, imageProduct, price, title } = req.body
+         const newProduct = await ProductModel.create({ count, description, imageProduct, price, title })
          return res.status(201).json({ message: 'Новый продукт создан.', data: newProduct })
       } catch (err) {
-         res.status(400).json({ error: err })
+         console.log(err);
+         return res.status(400).json({ error: err })
       }
    }
 
@@ -80,12 +80,13 @@ export class ProductController {
    async deleteProduct(req: Request, res: Response) {
       try {
          const { id } = req.params
-         if (!!id) throw 'Передайте параметр'
+
+         if (!id) throw 'Передайте параметр'
 
          const deletedProduct = await ProductModel.findByIdAndDelete(id)
-
          return res.status(201).json({
-            message: `Продукт ${deletedProduct?.title} был удалён.`
+            message: `Продукт ${deletedProduct?.title} был удалён.`,
+            id
          })
       } catch (err) {
          return res.status(400).json({

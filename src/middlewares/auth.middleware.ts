@@ -9,7 +9,6 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
             message: 'Token is not found'
         })
     } 
-
     try {
         verify(token, 'gorinich')
         next()

@@ -3,4 +3,5 @@ export interface ProductI {
     description?: string
     count: number
     price: number
+    imageProduct: string
 }

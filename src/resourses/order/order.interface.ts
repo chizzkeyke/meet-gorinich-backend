@@ -6,4 +6,8 @@ export interface OrderI {
     client: string
     phoneNumberClient: number
     comment?: string
+    email: string
+    typeDelivery: 'Доставка' | 'Самовызов'
+    address?: string 
+    date: string
 }

@@ -3,16 +3,15 @@ import { ProductController } from "./product.controller";
 import { authMiddleware } from "../../middlewares/auth.middleware";
 
 const controller = new ProductController()
-const routerProduct = Router()
+const productRouter = Router()
 
+productRouter.get('/product', controller.getProducts)
+productRouter.get('/product/:id', controller.getProduct)
 
-routerProduct.get('/product', controller.getProducts)
-routerProduct.get('/product/:id', controller.getProduct)
+productRouter.use('/product', authMiddleware)
+productRouter.post('/product', controller.createProduct)
+productRouter.patch('/product/:nameProduct/price', controller.updatePriceProduct)
+productRouter.patch('/product/:nameProduct/count', controller.updateCountProduct)
+productRouter.delete('/product/:id', controller.deleteProduct)
 
-routerProduct.use('/product', authMiddleware)
-routerProduct.post('/product/create', controller.createProduct)
-routerProduct.patch('/product/:nameProduct/price', controller.updatePriceProduct)
-routerProduct.patch('/product/:nameProduct/count', controller.updateCountProduct)
-routerProduct.delete('/prodcut/:nameProduct/delete')
-
-export { routerProduct }
+export { productRouter }

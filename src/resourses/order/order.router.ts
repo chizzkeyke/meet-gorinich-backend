@@ -1,15 +1,13 @@
 import { Router } from "express";
-import { authMiddleware } from "../../middlewares/auth.middleware";
 import { OrderController } from "./order.contoller";
-
-const controller = new OrderController()
+import { authMiddleware } from "../../middlewares/auth.middleware";
 
 const orderRouter = Router()
+const contoller = new OrderController()
 
-orderRouter.use(authMiddleware)
-orderRouter.get('order', controller.getOrders)
-orderRouter.get('order/:id', controller.getOrder)
-orderRouter.post('order/create', controller.createNewOrder)
-orderRouter.delete('order', controller.deleteOrder)
+orderRouter.use('/order', authMiddleware)
+orderRouter.get('/order', contoller.getOrderCurrentUser)
+orderRouter.get('/order/:id', contoller.getOneOrder)
+orderRouter.post('/order', contoller.createNewOrder)
 
-export {orderRouter}
+export { orderRouter }
