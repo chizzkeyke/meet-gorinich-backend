@@ -6,6 +6,7 @@ import { userRouter } from './resourses/user/user.router';
 import { orderRouter } from './resourses/order/order.router';
 import { stockRouter } from './resourses/stock/stock.router';
 import { reviewRouter } from './resourses/review/review.router';
+import { sliderRouter } from './resourses/slider/slider.router';
 
 const app = express()
 const PORT = 8000
@@ -18,6 +19,7 @@ app.use('/api', userRouter)
 app.use('/api', orderRouter)
 app.use('/api', stockRouter)
 app.use('/api', reviewRouter)
+app.use('/api', sliderRouter)
 
 export async function bootstrap(){
     try {

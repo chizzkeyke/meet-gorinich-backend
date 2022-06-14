@@ -21,7 +21,7 @@ export class ReviewContoller {
 
     async getReviews(req: Request, res: Response) {
         try {
-            const reviews = await ReviewModel.find()
+            const reviews = await (await ReviewModel.find()).reverse()
 
             return res.status(200).json({
                 data: reviews
@@ -46,6 +46,15 @@ export class ReviewContoller {
             return res.status(401).json({
                 message: 'Ошибка в получении отзыва.'
             })
+        }
+    }
+
+    async updateReview(req: Request, res: Response) {
+        try {
+            const idReview = req.params
+            const updatedData = req.body
+        } catch (error){
+
         }
     }
 
