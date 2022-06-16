@@ -6,7 +6,7 @@ const ProductSchema = new Schema<ProductI>({
     description: {type: String, required: true},
     count: {type: Number, required: true},
     price: {type: Number, required: true},
-    imageProduct: {type: String, required: true, unique: true}
+    imageProduct: {type: String}
 })
 
 export const ProductModel = model('Product', ProductSchema)

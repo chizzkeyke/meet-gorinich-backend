@@ -35,7 +35,8 @@ export class SliderContoller {
 
     async deleteSlider(req: Request, res: Response) {
         try {
-            const id = req.params
+            const { id } = req.params
+            
             await SliderModel.findByIdAndDelete(id)
 
             return res.status(200).json({

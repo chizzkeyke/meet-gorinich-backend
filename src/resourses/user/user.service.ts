@@ -13,7 +13,7 @@ export class UserService {
     }
 
     assignRole (email: string): Role  {
-        if (email === 'egor228@mail.ru') return 'admin'
+        if (email === 'egor@mail.ru') return 'admin'
         return 'buyer'
     }
 
